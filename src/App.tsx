@@ -1,38 +1,36 @@
-import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+import React ,{useState} from 'react';
+import './App.css';
+import List from './components/List';
+import AddToList from './components/AddToList';
+export interface IState{
+  people:{
+    name:string
+    age:number
+    url:string 
+    note?:string 
+  }[] 
+}
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
-  </ChakraProvider>
-)
+function App() {
+
+  const [people , setPeople] =useState<IState["people"]>([
+    {
+      name:"Messi",
+      age:32,
+      url:"https://upload.wikimedia.org/wikipedia/commons/6/6c/Lionel_Messi_in_2018.jpg",
+      note:"dsadas"
+    }
+  ])
+
+   
+
+  return (
+    <div className="App">
+      <h1>People Invited to my Party</h1>
+      <List people={people}/>
+      <AddToList people={people} setPeople={setPeople}/>
+    </div>
+  );
+}
+
+export default App;
