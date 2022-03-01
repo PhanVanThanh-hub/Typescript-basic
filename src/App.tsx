@@ -1,34 +1,21 @@
-import React ,{useState} from 'react';
+import React  from 'react';
 import './App.css';
-import List from './components/List';
-import AddToList from './components/AddToList';
-export interface IState{
-  people:{
-    name:string
-    age:number
-    url:string 
-    note?:string 
-  }[] 
-}
+import List from './features/List';
+import AddToList from './features/AddToList';
+import {selectList} from './features/ListSlice';
+import {useAppSelector } from './app/hooks';
+ 
+ 
 
 function App() {
-
-  const [people , setPeople] =useState<IState["people"]>([
-    {
-      name:"Messi",
-      age:32,
-      url:"https://upload.wikimedia.org/wikipedia/commons/6/6c/Lionel_Messi_in_2018.jpg",
-      note:"dsadas"
-    }
-  ])
-
-   
-
+  const people = useAppSelector(selectList);
+ 
+ 
   return (
     <div className="App">
       <h1>People Invited to my Party</h1>
       <List people={people}/>
-      <AddToList people={people} setPeople={setPeople}/>
+      <AddToList />
     </div>
   );
 }
